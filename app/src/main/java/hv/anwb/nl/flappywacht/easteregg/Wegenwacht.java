@@ -90,4 +90,8 @@ public class Wegenwacht {
     public int getSpeed() {
         return speed;
     }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 }

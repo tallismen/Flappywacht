@@ -10,6 +10,7 @@ import java.util.Random;
 import hv.anwb.nl.flappywacht.R;
 
 public class Pechauto {
+
     private Bitmap bitmap;
 
     private int x;
@@ -38,8 +39,11 @@ public class Pechauto {
         detectCollision = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }
 
-    public void update(int playerSpeed) {
-        x -= playerSpeed;
+    public void update(int score) {
+        int extrasnelheid = score / 100;
+        if (extrasnelheid > 0) {
+            x -= extrasnelheid;
+        }
         x -= speed;
         if (x < minX - bitmap.getWidth()) {
             Random generator = new Random();
