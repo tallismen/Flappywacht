@@ -24,8 +24,9 @@ public class Pechauto {
     private Rect detectCollision;
 
     public Pechauto(Context context, int screenX, int screenY) {
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.auto);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speedcam);
 
+        bitmap = Bitmap.createScaledBitmap(bitmap, 200,100,false);
         maxX = screenX;
         maxY = screenY;
         minX = 0;
@@ -35,6 +36,8 @@ public class Pechauto {
         speed = generator.nextInt(6) + 10;
         x = screenX;
         y = generator.nextInt(maxY) - bitmap.getHeight();
+
+        //detectCollision = new Rect(x, bitmap.getHeight(), bitmap.getWidth(), y);
 
         detectCollision = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }

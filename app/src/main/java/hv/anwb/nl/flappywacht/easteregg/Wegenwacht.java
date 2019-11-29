@@ -25,12 +25,16 @@ public class Wegenwacht {
         x = 75;
         y = 50;
         speed = 1;
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.wegenwacht);
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.fmone);
+
+        bitmap = Bitmap.createScaledBitmap(bitmap, 200,200,false);
 
         maxY = screenY - bitmap.getHeight() - 200;
         minY = 200;
 
         boosting = false;
+
+        //detectCollision = new Rect(x, bitmap.getHeight(), bitmap.getWidth(), y);
         detectCollision = new Rect(x, y, bitmap.getWidth(), bitmap.getHeight());
     }
 

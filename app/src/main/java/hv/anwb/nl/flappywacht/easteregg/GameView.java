@@ -52,7 +52,7 @@ public class GameView extends SurfaceView implements Runnable {
         hitSound = MediaPlayer.create(context, R.raw.hit);
 
         background = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
-                                                                            R.drawable.flappywacht_bg), screenSizeX, screenSizeY, false);
+                                                                            R.drawable.background), screenSizeX, screenSizeY, false);
 
         wegenwacht = new Wegenwacht(context, screenSizeX, screenSizeY);
         surfaceHolder = getHolder();
