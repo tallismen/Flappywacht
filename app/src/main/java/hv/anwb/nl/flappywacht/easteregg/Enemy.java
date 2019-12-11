@@ -32,7 +32,7 @@ public class Enemy {
         minY = 0;
 
         Random generator = new Random();
-        speed = generator.nextInt(6) + 10;
+        speed = generator.nextInt(3) + 5;
         x = screenX;
         y = generator.nextInt(maxY) - bitmap.getHeight();
 
@@ -47,7 +47,7 @@ public class Enemy {
         x -= speed;
         if (x < minX - bitmap.getWidth()) {
             Random generator = new Random();
-            speed = generator.nextInt(10) + 10;
+            speed = generator.nextInt(5) + 5;
             x = maxX;
             y = generator.nextInt(maxY) - bitmap.getHeight();
         }

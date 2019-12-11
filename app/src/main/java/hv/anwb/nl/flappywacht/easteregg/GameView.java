@@ -70,7 +70,6 @@ public class GameView extends SurfaceView implements Runnable {
         while (playing) {
             update();
             draw();
-            control();
         }
     }
 
@@ -100,7 +99,7 @@ public class GameView extends SurfaceView implements Runnable {
                     hitSound.prepare();
                     backgroundMusic.prepare();
                 }
-                catch (IOException e) {
+                catch (Exception e) {
                 }
                 enemy.setX(-200);
 
@@ -168,13 +167,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     private String getHighScoreString() {
         return "HighScore: " + highscore;
-    }
-
-    private void control() {
-        try {
-            Thread.sleep(17);
-        } catch (InterruptedException e) {
-        }
     }
 
     public void pause() {
