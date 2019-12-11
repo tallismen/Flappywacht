@@ -92,7 +92,7 @@ public class GameView extends SurfaceView implements Runnable {
         player.update();
         for (Enemy enemy : enemies) {
             enemy.update(score);
-            if (Rect.intersects(player.getDetectCollision(), enemy.getDetectCollision())) {
+            if (Rect.intersects(player.getDetectCollision(), enemy.detectCollision)) {
                 hitSound.stop();
                 backgroundMusic.stop();
                 try {
@@ -101,7 +101,7 @@ public class GameView extends SurfaceView implements Runnable {
                 }
                 catch (Exception e) {
                 }
-                enemy.setX(-200);
+                enemy.x = -200;
 
                 if (score > highscore) {
                     highscore = score;
@@ -151,8 +151,8 @@ public class GameView extends SurfaceView implements Runnable {
 
             for (Enemy enemy : enemies) {
                 canvas.drawBitmap(
-                        enemy.getBitmap(),
-                        enemy.getX(),
+                        enemy.bitmap,
+                        enemy.x,
                         enemy.getY(),
                         paint
                 );

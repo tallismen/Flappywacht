@@ -31,10 +31,8 @@ class Player(context: Context, screenX: Int, screenY: Int) {
         if (speed < MIN_SPEED) speed = MIN_SPEED
         y -= speed + GRAVITY
 
-        //Ondergrens
-        if (y < minY) y = minY
-        //Bovengrens
-        if (y > maxY) y = maxY
+        if (y < minY) y = minY //Ondergrens
+        if (y > maxY) y = maxY //Bovengrens
 
         detectCollision.apply {
             left = x
