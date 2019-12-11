@@ -1,7 +1,7 @@
 package hv.anwb.nl.flappywacht;
 
 import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 
