@@ -26,8 +26,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     private Thread gameThread = null;
 
-    private Wegenwacht wegenwacht;
-    private Pechauto[] pechautos;
+    private Player player;
+    private Enemy[] enemies;
 
     private Paint paint;
     private Canvas canvas;
@@ -54,13 +54,13 @@ public class GameView extends SurfaceView implements Runnable {
         background = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(),
                                                                             R.drawable.flappywacht_bg), screenSizeX, screenSizeY, false);
 
-        wegenwacht = new Wegenwacht(context, screenSizeX, screenSizeY);
+        player = new Player(context, screenSizeX, screenSizeY);
         surfaceHolder = getHolder();
         paint = new Paint();
 
-        pechautos = new Pechauto[ENEMYCOUNT];
+        enemies = new Enemy[ENEMYCOUNT];
         for (int i = 0; i < ENEMYCOUNT; i++) {
-            pechautos[i] = new Pechauto(context, screenSizeX, screenSizeY);
+            enemies[i] = new Enemy(context, screenSizeX, screenSizeY);
         }
         backgroundMusic.start();
     }
@@ -78,10 +78,10 @@ public class GameView extends SurfaceView implements Runnable {
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_UP:
-            wegenwacht.stopBoosting();
+            player.stopBoosting();
             break;
         case MotionEvent.ACTION_DOWN:
-            wegenwacht.setBoosting();
+            player.setBoosting();
             score += 5;
             break;
         }
@@ -90,10 +90,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
         score++;
-        wegenwacht.update();
-        for (Pechauto pechauto : pechautos) {
-            pechauto.update(score);
-            if (Rect.intersects(wegenwacht.getDetectCollision(), pechauto.getDetectCollision())) {
+        player.update();
+        for (Enemy enemy : enemies) {
+            enemy.update(score);
+            if (Rect.intersects(player.getDetectCollision(), enemy.getDetectCollision())) {
                 hitSound.stop();
                 backgroundMusic.stop();
                 try {
@@ -102,7 +102,7 @@ public class GameView extends SurfaceView implements Runnable {
                 }
                 catch (IOException e) {
                 }
-                pechauto.setX(-200);
+                enemy.setX(-200);
 
                 if (score > highscore) {
                     highscore = score;
@@ -110,7 +110,7 @@ public class GameView extends SurfaceView implements Runnable {
                 score = 0;
                 hitSound.start();
                 backgroundMusic.start();
-                wegenwacht.setY(70);
+                player.setY(70);
             }
         }
     }
@@ -143,18 +143,18 @@ public class GameView extends SurfaceView implements Runnable {
                             screenSizeY - 100,
                             paint2);
 
-            //Wegenwacht
+            //Player
             canvas.drawBitmap(
-                    wegenwacht.getBitmap(),
-                    wegenwacht.getX(),
-                    wegenwacht.getY(),
+                    player.getBitmap(),
+                    player.getX(),
+                    player.getY(),
                     paint);
 
-            for (Pechauto pechauto : pechautos) {
+            for (Enemy enemy : enemies) {
                 canvas.drawBitmap(
-                        pechauto.getBitmap(),
-                        pechauto.getX(),
-                        pechauto.getY(),
+                        enemy.getBitmap(),
+                        enemy.getX(),
+                        enemy.getY(),
                         paint
                 );
             }

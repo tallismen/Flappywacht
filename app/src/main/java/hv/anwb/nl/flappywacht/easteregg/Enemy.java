@@ -9,7 +9,7 @@ import java.util.Random;
 
 import hv.anwb.nl.flappywacht.R;
 
-public class Pechauto {
+public class Enemy {
 
     private Bitmap bitmap;
 
@@ -23,7 +23,7 @@ public class Pechauto {
 
     private Rect detectCollision;
 
-    public Pechauto(Context context, int screenX, int screenY) {
+    public Enemy(Context context, int screenX, int screenY) {
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.auto);
 
         maxX = screenX;

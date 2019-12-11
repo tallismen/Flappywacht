@@ -2,7 +2,7 @@ package hv.anwb.nl.flappywacht
 
 import android.graphics.Point
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import hv.anwb.nl.flappywacht.easteregg.GameView
 
 class MainActivity : AppCompatActivity() {

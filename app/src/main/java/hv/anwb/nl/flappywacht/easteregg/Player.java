@@ -7,7 +7,7 @@ import android.graphics.Rect;
 
 import hv.anwb.nl.flappywacht.R;
 
-public class Wegenwacht {
+public class Player {
     private static final int GRAVITY = -20;
     private static final int MIN_SPEED = 1;
     private static final int MAX_SPEED = 50;
@@ -21,7 +21,7 @@ public class Wegenwacht {
     private int minY;
     private Rect detectCollision;
 
-    public Wegenwacht(Context context, int screenX, int screenY) {
+    public Player(Context context, int screenX, int screenY) {
         x = 75;
         y = 50;
         speed = 1;
