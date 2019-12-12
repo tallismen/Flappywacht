@@ -18,7 +18,6 @@ class GameView(context: Context, private val screenSizeX: Int, private val scree
     private val enemies: Array<Enemy?>
 
     private val paint: Paint = Paint()
-    private var canvas: Canvas? = null
     private val surfaceHolder: SurfaceHolder = holder
     private val background: Bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.resources,
             R.drawable.flappywacht_bg), screenSizeX, screenSizeY, false)
@@ -72,33 +71,30 @@ class GameView(context: Context, private val screenSizeX: Int, private val scree
     }
 
     private fun draw() {
-        if (surfaceHolder.surface.isValid) {
-            canvas = surfaceHolder.lockCanvas()
+        surfaceHolder.apply {
+            if (surface.isValid) unlockCanvasAndPost(lockCanvas().apply {
+                drawColor(Color.WHITE)
 
-            canvas?.drawColor(Color.WHITE)
+                //Achtergrond
+                drawBitmap(background, 0f, 0f, paint)
 
-            //Achtergrond
-            canvas?.drawBitmap(background, 0f, 0f, paint)
+                //Score tekst bovenaan
+                drawText(scoreString, 10f, 120f, Paint().apply {
+                    color = Color.WHITE
+                    textSize = 120f
+                })
 
-            //Score tekst bovenaan
-            val paint2 = Paint()
-            paint2.color = Color.WHITE
-            paint2.textSize = 120f
-            canvas?.drawText(scoreString, 10f, 120f, paint2)
+                //Highscore tekst onderaan
+                drawText(highScoreString, 10f, screenSizeY - 100.toFloat(), Paint().apply {
+                    color = Color.WHITE
+                    textSize = 50f
+                })
 
-            //Highscore tekst onderaan
-            paint2.textSize = 50f
-            canvas?.drawText(highScoreString, 10f, screenSizeY - 100.toFloat(), paint2)
+                //Player
+                drawBitmap(player.bitmap, player.x.toFloat(), player.y.toFloat(), paint)
 
-            //Player
-            canvas?.drawBitmap(player.bitmap, player.x.toFloat(), player.y.toFloat(), paint)
-
-            for (enemy in enemies) {
-                enemy?.apply {
-                    canvas?.drawBitmap(bitmap, x.toFloat(), y.toFloat(), paint)
-                }
-            }
-            surfaceHolder.unlockCanvasAndPost(canvas)
+                enemies.forEach { it?.apply { drawBitmap(bitmap, x.toFloat(), y.toFloat(), paint) } }
+            })
         }
     }
 
@@ -112,15 +108,15 @@ class GameView(context: Context, private val screenSizeX: Int, private val scree
         backgroundMusic.start()
     }
 
-    companion object {
-        private const val ENEMYCOUNT = 4
-    }
-
     init {
         enemies = arrayOfNulls(ENEMYCOUNT)
         for (i in 0 until ENEMYCOUNT) {
             enemies[i] = Enemy(context, screenSizeX, screenSizeY)
         }
         backgroundMusic.start()
+    }
+
+    companion object {
+        private const val ENEMYCOUNT = 4
     }
 }
