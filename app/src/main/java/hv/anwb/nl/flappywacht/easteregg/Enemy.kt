@@ -11,7 +11,6 @@ class Enemy(context: Context, screenX: Int, screenY: Int) {
     val bitmap: Bitmap
     var x: Int
     var y: Int
-        private set
     private var speed: Int
     private val maxX: Int
     private val minX: Int
